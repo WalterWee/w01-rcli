@@ -22,7 +22,7 @@ struct Player {
 pub fn process_csv(input: &str, output: String, output_format: OutputFormat) -> Result<()> {
     let mut reader = Reader::from_path(input)?;
     let mut ret = Vec::with_capacity(128);
-    let head = reader.headers()?.clone();
+    let head: csv::StringRecord = reader.headers()?.clone();
     for result in reader.records() {
         let record = result?;
         let json_value: Value = head.iter().zip(record.iter()).collect::<Value>();

@@ -13,6 +13,8 @@ pub struct Opts {
 pub enum SubCommand {
     #[command(name = "csv", about = "Read csv or convert CSV to other formats")]
     Csv(CsvOpts),
+    #[command(name = "genpass", about = "Generate random password")]
+    GenPass(GenPassOpts),
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -37,6 +39,24 @@ pub struct CsvOpts {
 
     #[arg(short = 'a', long, default_value_t = true)]
     pub header: bool,
+}
+
+#[derive(Debug, Parser)]
+pub struct GenPassOpts {
+    #[arg(short, long, default_value_t = 16)]
+    pub length: u8,
+
+    #[arg(short, long, default_value_t = false)]
+    pub upper: bool,
+
+    #[arg(long, default_value_t = true)]
+    pub lower: bool,
+
+    #[arg(short, long, default_value_t = true)]
+    pub number: bool,
+
+    #[arg(short, long, default_value_t = true)]
+    pub special: bool,
 }
 
 fn parse_format(format: &str) -> Result<OutputFormat, anyhow::Error> {
