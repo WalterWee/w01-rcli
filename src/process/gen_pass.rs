@@ -51,7 +51,7 @@ pub fn process_genpass(
 
     for _ in 0..(length - password.len() as u8) {
         let c = chars
-            .choose_mut(&mut rng)
+            .choose(&mut rng)
             .expect("chars won't be empty in this context");
         password.push(*c);
     }
